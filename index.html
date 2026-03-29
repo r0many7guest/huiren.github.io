@@ -1,72 +1,268 @@
-<section class="team-section" id="members">
-    <span class="tagline">The Practitioners / 実践者</span>
-    <div class="team-grid">
-        
-        <div class="member-card hover-target">
-            <div class="member-photo"><img src="8.png" alt="Chief Researcher"></div>
-            <div class="member-info">
-                <b data-en>Chief Researcher</b><b data-jp>首席研究員</b>
-                <span data-en>Strategic Architect &<br>Lead Systems Integrator</span>
-                <span data-jp>戦略アーキテクト兼<br>システム統合総責任者</span>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUIREN Research | Advanced Systems</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #f4f0e6;        
+            --bg-card: #ece6d8;        
+            --bg-card-hover: #dfd7c6;  
+            --text-main: #38332d;      
+            --text-dim: #7a7369;       
+            --accent: #5c5346;         
+            --border: #d5ccba;         
+            --font-main: 'Inter', sans-serif;
+            --font-serif: 'Cormorant Gramond', serif;
+            --transition: 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none !important; }
+        html { scroll-behavior: smooth; background: var(--bg-deep); }
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.6;
+            letter-spacing: 0.05em;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        #cursor {
+            position: fixed; top: 0; left: 0; width: 6px; height: 6px;
+            background: var(--accent); border-radius: 50%;
+            pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+            transition: width 0.5s var(--transition), height 0.5s var(--transition), background 0.5s;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 4vw; }
+
+        header {
+            padding: 2rem 0;
+            position: sticky; top: 0; z-index: 100;
+            border-bottom: 1px solid var(--border);
+            background: rgba(244, 240, 230, 0.85);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-wrapper { display: flex; align-items: center; }
+        .logo { font-size: 1rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-main); margin-right: auto; }
+
+        .main-nav { display: flex; gap: 2.5rem; margin-right: 2.5rem; }
+        .main-nav a { text-decoration: none; color: var(--text-dim); font-size: 0.85rem; letter-spacing: 0.05em; transition: 0.3s; }
+        .main-nav a:hover { color: var(--text-main); }
+
+        .lang-toggle { display: flex; gap: 15px; font-size: 0.75rem; color: var(--text-dim); border-left: 1px solid var(--border); padding-left: 15px;}
+        .lang-btn { background: none; border: none; color: inherit; font-size: inherit; letter-spacing: 0.1em; transition: 0.3s; }
+        .lang-btn.active { color: var(--text-main); font-weight: 500; }
+
+        .hero { height: 70vh; display: flex; flex-direction: column; justify-content: center; }
+        .tagline { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5em; margin-bottom: 2rem; }
+        h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 300; line-height: 1.2; margin-bottom: 1.5rem; color: var(--text-main); }
+
+        /* 团队成员网格 */
+        .team-section { padding: 5vw 0 10vw 0; border-bottom: 1px solid var(--border); }
+        .team-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 3vw 2vw; margin-top: 5vw;
+        }
+        .member-card { text-align: left; }
+        .member-photo {
+            width: 100%; aspect-ratio: 3 / 4; overflow: hidden; 
+            background: var(--bg-card); margin-bottom: 1.5rem;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .member-photo img { 
+            width: 100%; height: 100%; 
+            object-fit: cover; 
+            transition: var(--transition); 
+        }
+        .member-card:hover img { transform: scale(1.05); }
+
+        .member-info { color: var(--text-dim); transition: 0.8s var(--transition); font-size: 0.7rem; line-height: 1.5; }
+        .member-info b { color: var(--text-main); font-weight: 700; display: block; margin-bottom: 5px; font-size: 0.9rem; letter-spacing: 0.02em; }
+        .member-info i { font-style: normal; color: var(--accent); font-weight: 500; display: block; margin-bottom: 2px; }
+
+        /* 页脚大字体优化 */
+        footer { padding: 8rem 0; border-top: 1px solid var(--border); }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; }
+        .footer-mail {
+            font-size: 1.5rem; /* 显著加大 */
+            color: var(--text-main); 
+            text-decoration: underline; 
+            text-underline-offset: 8px; 
+            font-weight: 700; 
+            padding: 10px 20px; 
+            transition: 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+        .footer-mail:hover { background-color: var(--text-main); color: var(--bg-deep); text-decoration: none; transform: translateY(-3px); }
+
+        #back-to-top {
+            position: fixed; bottom: 40px; right: 40px; z-index: 99;
+            width: 60px; height: 60px; background-color: var(--bg-card); border: 1px solid var(--border);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: 0.4s; font-size: 0.7rem;
+        }
+        #back-to-top.show { opacity: 1; visibility: visible; }
+
+        [data-en] { display: block; } [data-jp] { display: none; }
+        body.jp-active [data-en] { display: none; } body.jp-active [data-jp] { display: block; }
+
+        @media (max-width: 1024px) { .team-grid { grid-template-columns: repeat(2, 1fr); gap: 5vw; } }
+        @media (max-width: 768px) { .footer-content { flex-direction: column; gap: 3rem; text-align: center; } .footer-mail { font-size: 1.2rem; } }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+
+    <header>
+        <div class="container">
+            <div class="header-wrapper">
+                <div class="logo">HUIREN RESEARCH</div>
+                <nav class="main-nav">
+                    <a href="#about" class="hover-target">Collective</a>
+                    <a href="#members" class="hover-target">Practitioners</a>
+                </nav>
+                <div class="lang-toggle hover-target">
+                    <button class="lang-btn active" id="btn-en">EN</button>
+                    <span>|</span>
+                    <button class="lang-btn" id="btn-jp">JP</button>
+                </div>
             </div>
         </div>
+    </header>
 
-        <div class="member-card hover-target">
-            <div class="member-photo"><img src="4.png" alt="Principal Engineer"></div>
-            <div class="member-info">
-                <b data-en>Principal Engineer</b><b data-jp>主任エンジニア</b>
-                <span data-en>High-Dynamic Systems<br>Kinetic Development Lead</span>
-                <span data-jp>高ダイナミックシステム<br>キネティック開発リード</span>
+    <main class="container">
+        <section class="hero" id="about">
+            <span class="tagline" data-en>Research & Integration</span>
+            <span class="tagline" data-jp>研究と統合</span>
+            <h1 data-en>The Practitioners.</h1>
+            <h1 data-jp>実践者たち。</h1>
+        </section>
+
+        <section class="team-section" id="members">
+            <div class="team-grid">
+                
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="8.png" alt="Chief"></div>
+                    <div class="member-info">
+                        <b data-en>Chief Researcher</b><b data-jp>首席研究員</b>
+                        <i data-en>Strategic Architect</i><i data-jp>戦略アーキテクト</i>
+                        <span data-en>Leading global systems integration and advanced tactical frameworks.</span>
+                        <span data-jp>グローバルなシステム統合と高度な戦術フレームワークを主導。</span>
+                    </div>
+                </div>
+
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="4.png" alt="Principal"></div>
+                    <div class="member-info">
+                        <b data-en>Principal Engineer</b><b data-jp>主任エンジニア</b>
+                        <i data-en>Kinetic Systems Lead</i><i data-jp>キネティックシステムリード</i>
+                        <span data-en>Specializing in high-dynamic response and complex mechanical evolution.</span>
+                        <span data-jp>高ダイナミック応答と複雑な機械的進化を専門とする。</span>
+                    </div>
+                </div>
+
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="1.png" alt="Specialist"></div>
+                    <div class="member-info">
+                        <b data-en>Algo Specialist</b><b data-jp>アルゴリズム専門家</b>
+                        <i data-en>Structural Optimizer</i><i data-jp>構造最適化担当</i>
+                        <span data-en>Expert in algorithmic topology and metallic additive manufacturing.</span>
+                    </div>
+                </div>
+
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="2.png" alt="Specialist"></div>
+                    <div class="member-info">
+                        <b data-en>Robotics Expert</b><b data-jp>ロボティクス専門家</b>
+                        <i data-en>Unmanned Platform Lead</i><i data-jp>無人プラットフォームリード</i>
+                        <span data-en>Developing next-gen tactical mobility for extreme environments.</span>
+                    </div>
+                </div>
+
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="3.png" alt="Specialist"></div>
+                    <div class="member-info">
+                        <b data-en>Material Scientist</b><b data-jp>材料科学者</b>
+                        <i data-en>Advanced Fabrication</i><i data-jp>高度製造技術</i>
+                        <span data-en>Innovating in high-strength metallic structures and 3D printing.</span>
+                    </div>
+                </div>
+
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="5.png" alt="Specialist"></div>
+                    <div class="member-info">
+                        <b data-en>Systems Lead</b><b data-jp>システムリード</b>
+                        <i data-en>Industrial Integration</i><i data-jp>産業統合</i>
+                        <span data-en>Orchestrating global resources for rapid prototyping and delivery.</span>
+                    </div>
+                </div>
+
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="6.png" alt="Specialist"></div>
+                    <div class="member-info">
+                        <b data-en>Senior Analyst</b><b data-jp>シニアアナリスト</b>
+                        <i data-en>Precision Controller</i><i data-jp>精密制御</i>
+                        <span data-en>Focused on stability and response optimization in kinetic units.</span>
+                    </div>
+                </div>
+
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="7.png" alt="Specialist"></div>
+                    <div class="member-info">
+                        <b data-en>Technical Director</b><b data-jp>テクニカルディレクター</b>
+                        <i data-en>Operations Oversight</i><i data-jp>運用監督</i>
+                        <span data-en>Managing mission-critical fabrication and technical deployment.</span>
+                    </div>
+                </div>
+
             </div>
-        </div>
+        </section>
+    </main>
 
-        <div class="member-card hover-target">
-            <div class="member-photo"><img src="1.png" alt="Expert"></div>
-            <div class="member-info">
-                <b data-en>Algo Specialist</b><b data-jp>アルゴリズム専門家</b>
-                <span data-en>Topology & Structural<br>Evolution Expert</span>
-            </div>
+    <footer>
+        <div class="container footer-content">
+            <div class="copyright">© 2026 HUIREN RESEARCH GROUP.</div>
+            <a href="mailto:contact@huiren-lab.org" class="footer-mail hover-target">contact@huiren-lab.org</a>
         </div>
+    </footer>
 
-        <div class="member-card hover-target">
-            <div class="member-photo"><img src="2.png" alt="Expert"></div>
-            <div class="member-info">
-                <b data-en>Robotics Expert</b><b data-jp>ロボティクス専門家</b>
-                <span data-en>Tactical Unmanned<br>Platform Specialist</span>
-            </div>
-        </div>
+    <div id="back-to-top" class="hover-target">↑ TOP</div>
 
-        <div class="member-card hover-target">
-            <div class="member-photo"><img src="3.png" alt="Expert"></div>
-            <div class="member-info">
-                <b data-en>Material Scientist</b><b data-jp>材料科学者</b>
-                <span data-en>Metallic Additive<br>Manufacturing Specialist</span>
-            </div>
-        </div>
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
 
-        <div class="member-card hover-target">
-            <div class="member-photo"><img src="5.png" alt="Expert"></div>
-            <div class="member-info">
-                <b data-en>Integration Lead</b><b data-jp>統合リード</b>
-                <span data-en>Global Industrial<br>Network Coordinator</span>
-            </div>
-        </div>
+        document.querySelectorAll('.hover-target').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '40px'; cursor.style.height = '40px';
+                cursor.style.background = 'transparent'; cursor.style.border = '1px solid var(--accent)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '6px'; cursor.style.height = '6px';
+                cursor.style.background = 'var(--accent)'; cursor.style.border = 'none';
+            });
+        });
 
-        <div class="member-card hover-target">
-            <div class="member-photo"><img src="6.png" alt="Expert"></div>
-            <div class="member-info">
-                <b data-en>Senior Analyst</b><b data-jp>シニアアナリスト</b>
-                <span data-en>Stability Control &<br>Precision Optimization</span>
-            </div>
-        </div>
+        const btnEn = document.getElementById('btn-en');
+        const btnJp = document.getElementById('btn-jp');
+        btnEn.onclick = () => { document.body.classList.remove('jp-active'); btnEn.classList.add('active'); btnJp.classList.remove('active'); };
+        btnJp.onclick = () => { document.body.classList.add('jp-active'); btnJp.classList.add('active'); btnEn.classList.remove('active'); };
 
-        <div class="member-card hover-target">
-            <div class="member-photo"><img src="7.png" alt="Expert"></div>
-            <div class="member-info">
-                <b data-en>Technical Lead</b><b data-jp>テクニカルリード</b>
-                <span data-en>Defense Fabrication<br>Operations Oversight</span>
-            </div>
-        </div>
-
-    </div>
-</section>
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) backToTopBtn.classList.add('show');
+            else backToTopBtn.classList.remove('show');
+        });
+        backToTopBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+    </script>
+</body>
+</html>

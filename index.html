@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HUIREN Research | Advanced Defense Systems</title>
+    <title>HUIREN Research | Advanced Engineering Solutions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -60,12 +60,12 @@
         .lang-btn { background: none; border: none; color: inherit; font-size: inherit; letter-spacing: 0.1em; transition: 0.3s; cursor: none; }
         .lang-btn.active { color: var(--text-main); font-weight: 500; }
 
-        .hero { height: 75vh; display: flex; flex-direction: column; justify-content: center; }
+        .hero { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; padding: 10vh 0; }
         .tagline { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5em; margin-bottom: 2rem; }
-        h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 300; line-height: 1.2; margin-bottom: 1.5rem; color: var(--text-main); }
-        .hero-desc { max-width: 600px; color: var(--text-dim); font-size: 1.1rem; }
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.2; margin-bottom: 2rem; color: var(--text-main); }
+        .hero-desc { max-width: 750px; color: var(--text-dim); font-size: 1.05rem; line-height: 1.8; }
 
-        /* 业务网格 - 更新为3列布局 */
+        /* 业务网格 */
         .business-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
             border-top: 1px solid var(--border); border-left: 1px solid var(--border);
@@ -79,20 +79,25 @@
         .item-num { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: var(--text-dim); display: block; margin-bottom: 1.5rem; }
 
         .grid-item h2 { font-weight: 500; margin-bottom: 1.2rem; font-size: 1.2rem; line-height: 1.4; min-height: 3.5rem; }
-        .grid-item p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 2rem; flex-grow: 1; }
+        .grid-item p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 2.5rem; flex-grow: 1; }
 
-        .visual-frame { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: #dcdcdc; margin-top: auto; }
-        .visual-frame img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.2) grayscale(0.5); transition: 1.2s var(--transition); }
-        .grid-item:hover img { filter: sepia(0) grayscale(0); transform: scale(1.05); }
+        /* 图片框架 - 移除黑白滤镜 */
+        .visual-frame { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: #dcdcdc; margin-top: auto; border: 1px solid rgba(0,0,0,0.05); }
+        .visual-frame img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            filter: none; /* 移除黑白/褐色滤镜 */
+            transition: 1.2s var(--transition); 
+        }
+        .grid-item:hover img { transform: scale(1.08); }
 
         .team-section { padding: 10vw 0; border-bottom: 1px solid var(--border); }
         .team-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 1.5vw; margin-top: 5vw; }
         .member-card { text-align: left; }
         .member-photo { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #dcdcdc; margin-bottom: 1rem; }
-        .member-photo img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.3) grayscale(0.8); transition: var(--transition); }
+        .member-photo img { width: 100%; height: 100%; object-fit: cover; filter: none; transition: var(--transition); }
         .member-info { color: var(--text-dim); font-size: 0.65rem; line-height: 1.4; }
         .member-info b { color: var(--text-main); font-weight: 700; display: block; margin-bottom: 3px; font-size: 0.75rem; }
-        .member-card:hover img { transform: scale(1.1); filter: none; }
+        .member-card:hover img { transform: scale(1.1); }
 
         footer { padding: 8rem 0; border-top: 1px solid var(--border); }
         .footer-content { display: flex; justify-content: space-between; align-items: center; }
@@ -107,6 +112,7 @@
         }
         #back-to-top.show { opacity: 1; visibility: visible; }
 
+        /* 语言切换逻辑 */
         [data-en] { display: block; } [data-jp] { display: none; }
         body.jp-active [data-en] { display: none; } body.jp-active [data-jp] { display: block; }
 
@@ -127,16 +133,16 @@
     <header>
         <div class="container">
             <div class="header-wrapper">
-                <div class="logo">HUIREN RESEARCH</div>
+                <div class="logo">HUIREN LAB</div>
                 <nav class="main-nav">
                     <a href="#about" class="hover-target">About</a>
-                    <a href="#research" class="hover-target">Core Capabilities</a>
+                    <a href="#research" class="hover-target">Capabilities</a>
                     <a href="#members" class="hover-target">Members</a>
                 </nav>
                 <div class="lang-toggle hover-target">
                     <button class="lang-btn active" id="btn-en">EN</button>
                     <span>|</span>
-                    <button class="lang-btn" id="btn-jp">JP</button>
+                    <button class="lang-btn" id="btn-jp">CN/JP</button>
                 </div>
             </div>
         </div>
@@ -144,58 +150,71 @@
 
     <main class="container">
         <section class="hero" id="about">
-            <span class="tagline" data-en>Advanced Defense & Manufacturing</span>
-            <span class="tagline" data-jp>先端防衛と先端製造</span>
-            <h1 data-en>From Conceptual Research to<br>Kinetic Integration.</h1>
-            <h1 data-jp>概念研究から<br>キネティック統合まで。</h1>
-            <p class="hero-desc" data-en>A professional closed-loop from topology design to global industrial delivery.</p>
-            <p class="hero-desc" data-jp>トポロジー設計からグローバルな産業デリバリーまで、専門的なクローズドループを提供します。</p>
+            <span class="tagline" data-en>Slogan</span>
+            <span class="tagline" data-jp>商业化定调</span>
+            
+            <h1 data-en>Engineering Beyond Limits.<br>Delivering Ready-to-Deploy Systems.</h1>
+            <h1 data-jp>突破工程极限。<br>交付即插即用的实战系统。</h1>
+            
+            <div class="hero-desc">
+                <p data-en>
+                    <b>Huiren Lab</b> is an independent institution focused on hardcore engineering solutions in extreme environments. 
+                    We cross theoretical boundaries to provide global clients with structural lightweighting, autonomous platform development, 
+                    and kinetic system reconstruction services. Leveraging deep algorithmic accumulation and a global manufacturing network, 
+                    we ensure every solution from the lab is a high-reliability product ready for immediate tactical deployment.
+                </p>
+                <p data-jp>
+                    <b>Huiren Lab</b> 是一家专注于极端环境下硬核工程解决方案的独立机构。
+                    我们跨越理论边界，为全球客户提供结构轻量化、自主平台开发及动能系统重构服务。
+                    依托深厚的算法积累与全球制造网络，我们确保每一个从实验室走出的方案，都是能够直接投入实战的高可靠性产品。
+                </p>
+            </div>
         </section>
 
         <section class="business-grid" id="research">
             <div class="grid-item hover-target">
                 <span class="item-num">01.</span>
                 <h2 data-en>Structural Evolution & Optimization</h2>
-                <h2 data-jp>構造重塑与多場耦合優化</h2>
-                <p data-en><b>Extreme Performance Engineering.</b> We specialize in multiphysics topology optimization for critical components. Achieving 20%-40% weight reduction while enhancing structural rigidity, thermal dissipation, and acoustic stealth.</p>
-                <p data-jp><b>極限性能エンジニアリング。</b>重要部品のマルチフィジックス・トポロジー最適化を専門としています。構造剛性の強化、放熱性能の向上、および静音性を維持しつつ、20%-40%の軽量化を実現します。</p>
-                <div class="visual-frame"><img src="topology_optimized_part.webp" alt="Structural Evolution"></div>
+                <h2 data-jp>结构重塑与多场耦合优化</h2>
+                <p data-en>Extreme Performance Engineering. We specialize in multiphysics topology optimization for critical components, achieving significant weight reduction while enhancing structural rigidity.</p>
+                <p data-jp>极强制性能工程。我们专注于核心部件的多物理场拓扑优化，在显著降低重量的同时，提升结构刚度与实战可靠性。</p>
+                <div class="visual-frame"><img src="part1.webp" alt="Engineering Part 1"></div>
             </div>
 
             <div class="grid-item hover-target">
                 <span class="item-num">02.</span>
                 <h2 data-en>Heavy-Duty Platforms & System Enhancement</h2>
-                <h2 data-jp>高負載移動平台与系統増強</h2>
-                <p data-en><b>Specialized Mobility & Tactical Resilience.</b> Delivering rugged all-terrain towing platforms and air-ground robotic systems. We bridge the gap between autonomous path-planning and battle-proven mechanical reliability.</p>
-                <p data-jp><b>特殊モビリティと戦術的レジリエンス。</b>堅牢な全地形対応牽引プラットフォームと空地一体型ロボットシステムを提供します。高度な自律経路計画と、実戦で証明された機械的信頼性を両立させます。</p>
-                <div class="visual-frame"><img src="tactical_mobility_system.webp" alt="Tactical Mobility"></div>
+                <h2 data-jp>高负载移动平台与系统增强</h2>
+                <p data-en>Specialized Mobility & Tactical Resilience. Delivering rugged all-terrain towing platforms and air-ground robotic systems that bridge mechanical reliability and autonomy.</p>
+                <p data-jp>特种移动与战术韧性。交付坚固的全地形牵引平台与空地一体化机器人系统，填补自律路径规划与机械可靠性之间的鸿沟。</p>
+                <div class="visual-frame"><img src="part2.webp" alt="Engineering Part 2"></div>
             </div>
 
             <div class="grid-item hover-target">
                 <span class="item-num">03.</span>
                 <h2 data-en>Bespoke Manufacturing & Global Fulfillment</h2>
-                <h2 data-jp>柔性供応鏈与全託管交付</h2>
-                <p data-en><b>From Concept to Rapid Deployment.</b> Leveraging a global manufacturing network centered in Southeast Asia, we offer a discreet path from prototyping to small-batch production for complex engineering requirements.</p>
-                <p data-jp><b>コンセプトから迅速な展開まで。</b>東南アジアを中心としたグローバルな製造ネットワークを活用し、試作から小規模量産まで、機密性を保ちながらシームレスなパスを提供します。</p>
-                <div class="visual-frame"><img src="global_fulfillment.webp" alt="Bespoke Manufacturing"></div>
+                <h2 data-jp>柔性供应链与全托管交付</h2>
+                <p data-en>From Concept to Rapid Deployment. Leveraging a global network centered in Southeast Asia for discreet prototyping and small-batch production of complex systems.</p>
+                <p data-jp>从概念到快速部署。依托以东南亚为中心的全球制造网络，为复杂工程需求提供从原型到小批量生产的机密交付路径。</p>
+                <div class="visual-frame"><img src="part3.webp" alt="Engineering Part 3"></div>
             </div>
         </section>
 
         <section class="team-section" id="members">
-            <span class="tagline">The Practitioners / 実践者</span>
+            <span class="tagline">The Practitioners / 实践者</span>
             <div class="team-grid">
                 <div class="member-card hover-target">
                     <div class="member-photo"><img src="8.webp" alt="Chief"></div>
                     <div class="member-info">
-                        <b data-en>Chief Researcher</b><b data-jp>首席研究員</b>
-                        <span data-en>Strategic Architect</span>
+                        <b data-en>Chief Researcher</b><b data-jp>首席研究员</b>
+                        <span>Strategic Architect</span>
                     </div>
                 </div>
                 <div class="member-card hover-target">
                     <div class="member-photo"><img src="4.webp" alt="Principal"></div>
                     <div class="member-info">
-                        <b data-en>Principal Engineer</b><b data-jp>主任エンジニア</b>
-                        <span data-en>Kinetic Systems Expert</span>
+                        <b data-en>Principal Engineer</b><b data-jp>主任工程师</b>
+                        <span>Kinetic Systems Expert</span>
                     </div>
                 </div>
                 <div class="member-card hover-target"><div class="member-photo"><img src="1.webp"></div><div class="member-info"><b>Algo Specialist</b><span>Structural Optimizer</span></div></div>

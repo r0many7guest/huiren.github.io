@@ -32,7 +32,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 自定义光标 */
         #cursor {
             position: fixed; top: 0; left: 0; width: 6px; height: 6px;
             background: var(--accent); border-radius: 50%;
@@ -58,62 +57,46 @@
         .main-nav a:hover { color: var(--text-main); }
 
         .lang-toggle { display: flex; gap: 15px; font-size: 0.75rem; color: var(--text-dim); border-left: 1px solid var(--border); padding-left: 15px;}
-        .lang-btn { background: none; border: none; color: inherit; font-size: inherit; letter-spacing: 0.1em; transition: 0.3s; }
+        .lang-btn { background: none; border: none; color: inherit; font-size: inherit; letter-spacing: 0.1em; transition: 0.3s; cursor: none; }
         .lang-btn.active { color: var(--text-main); font-weight: 500; }
 
-        /* Hero 区块 */
         .hero { height: 75vh; display: flex; flex-direction: column; justify-content: center; }
         .tagline { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5em; margin-bottom: 2rem; }
         h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 300; line-height: 1.2; margin-bottom: 1.5rem; color: var(--text-main); }
         .hero-desc { max-width: 600px; color: var(--text-dim); font-size: 1.1rem; }
 
-        /* 业务网格 (01-04) */
+        /* 业务网格 - 更新为3列布局 */
         .business-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr);
+            display: grid; grid-template-columns: repeat(3, 1fr);
             border-top: 1px solid var(--border); border-left: 1px solid var(--border);
         }
         .grid-item {
-            padding: 6vw 4vw; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            padding: 4vw 3vw; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
             background: var(--bg-card); transition: background var(--transition);
+            display: flex; flex-direction: column;
         }
         .grid-item:hover { background: var(--bg-card-hover); }
-        .item-num { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: var(--text-dim); display: block; margin-bottom: 2rem; }
-        .grid-item h2 { font-weight: 400; margin-bottom: 1rem; }
-        .visual-frame { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #ddd; margin-top: 2rem; }
-        .visual-frame img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.2) grayscale(0.5); }
+        .item-num { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: var(--text-dim); display: block; margin-bottom: 1.5rem; }
 
-        /* 团队成员 (核心图片处理) */
+        .grid-item h2 { font-weight: 500; margin-bottom: 1.2rem; font-size: 1.2rem; line-height: 1.4; min-height: 3.5rem; }
+        .grid-item p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 2rem; flex-grow: 1; }
+
+        .visual-frame { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: #dcdcdc; margin-top: auto; }
+        .visual-frame img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.2) grayscale(0.5); transition: 1.2s var(--transition); }
+        .grid-item:hover img { filter: sepia(0) grayscale(0); transform: scale(1.05); }
+
         .team-section { padding: 10vw 0; border-bottom: 1px solid var(--border); }
         .team-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 1.5vw; margin-top: 5vw; }
         .member-card { text-align: left; }
-        
-        .member-photo {
-            width: 100%; 
-            aspect-ratio: 1 / 1; /* 强制设为正方形 */
-            overflow: hidden; 
-            background: #dcdcdc; 
-            margin-bottom: 1rem;
-        }
-        
-        .member-photo img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; /* 关键：无论原图什么样，都会充满容器并裁剪多余部分 */
-            filter: sepia(0.3) grayscale(0.8);
-            transition: var(--transition); 
-        }
-        
+        .member-photo { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #dcdcdc; margin-bottom: 1rem; }
+        .member-photo img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.3) grayscale(0.8); transition: var(--transition); }
         .member-info { color: var(--text-dim); font-size: 0.65rem; line-height: 1.4; }
         .member-info b { color: var(--text-main); font-weight: 700; display: block; margin-bottom: 3px; font-size: 0.75rem; }
         .member-card:hover img { transform: scale(1.1); filter: none; }
 
-        /* 页脚大邮箱 */
         footer { padding: 8rem 0; border-top: 1px solid var(--border); }
         .footer-content { display: flex; justify-content: space-between; align-items: center; }
-        .footer-mail {
-            font-size: 1.5rem; color: var(--text-main); text-decoration: underline; 
-            text-underline-offset: 8px; font-weight: 700; padding: 10px 20px; transition: 0.4s;
-        }
+        .footer-mail { font-size: 1.5rem; color: var(--text-main); text-decoration: underline; text-underline-offset: 8px; font-weight: 700; padding: 10px 20px; transition: 0.4s; }
         .footer-mail:hover { background: var(--text-main); color: var(--bg-deep); text-decoration: none; }
 
         #back-to-top {
@@ -124,12 +107,17 @@
         }
         #back-to-top.show { opacity: 1; visibility: visible; }
 
-        /* 语言显示切换 */
         [data-en] { display: block; } [data-jp] { display: none; }
         body.jp-active [data-en] { display: none; } body.jp-active [data-jp] { display: block; }
 
-        @media (max-width: 1200px) { .team-grid { grid-template-columns: repeat(4, 1fr); gap: 3vw; } }
-        @media (max-width: 768px) { .business-grid, .team-grid { grid-template-columns: 1fr; } .footer-content { flex-direction: column; gap: 3rem; } }
+        @media (max-width: 1200px) {
+            .business-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: repeat(4, 1fr); gap: 3vw; }
+        }
+        @media (max-width: 768px) {
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-content { flex-direction: column; gap: 3rem; }
+        }
     </style>
 </head>
 <body>
@@ -142,7 +130,7 @@
                 <div class="logo">HUIREN RESEARCH</div>
                 <nav class="main-nav">
                     <a href="#about" class="hover-target">About</a>
-                    <a href="#research" class="hover-target">Research</a>
+                    <a href="#research" class="hover-target">Core Capabilities</a>
                     <a href="#members" class="hover-target">Members</a>
                 </nav>
                 <div class="lang-toggle hover-target">
@@ -161,83 +149,61 @@
             <h1 data-en>From Conceptual Research to<br>Kinetic Integration.</h1>
             <h1 data-jp>概念研究から<br>キネティック統合まで。</h1>
             <p class="hero-desc" data-en>A professional closed-loop from topology design to global industrial delivery.</p>
+            <p class="hero-desc" data-jp>トポロジー設計からグローバルな産業デリバリーまで、専門的なクローズドループを提供します。</p>
         </section>
 
         <section class="business-grid" id="research">
             <div class="grid-item hover-target">
                 <span class="item-num">01.</span>
-                <h2 data-en>Structural Evolution</h2>
-                <h2 data-jp>構造の進化</h2>
-                <p data-en>Algorithmic topology for metallic 3D printing.</p>
-                <div class="visual-frame"><img src="topology.webp" alt="Topology"></div>
+                <h2 data-en>Structural Evolution & Optimization</h2>
+                <h2 data-jp>構造重塑与多場耦合優化</h2>
+                <p data-en><b>Extreme Performance Engineering.</b> We specialize in multiphysics topology optimization for critical components. Achieving 20%-40% weight reduction while enhancing structural rigidity, thermal dissipation, and acoustic stealth.</p>
+                <p data-jp><b>極限性能エンジニアリング。</b>重要部品のマルチフィジックス・トポロジー最適化を専門としています。構造剛性の強化、放熱性能の向上、および静音性を維持しつつ、20%-40%の軽量化を実現します。</p>
+                <div class="visual-frame"><img src="topology_optimized_part.webp" alt="Structural Evolution"></div>
             </div>
+
             <div class="grid-item hover-target">
                 <span class="item-num">02.</span>
-                <h2 data-en>Tactical Mobility</h2>
-                <h2 data-jp>戦術的機動</h2>
-                <p data-en>Unmanned platforms for complex terrains.</p>
-                <div class="visual-frame"><img src="mobility.webp" alt="Mobility"></div>
+                <h2 data-en>Heavy-Duty Platforms & System Enhancement</h2>
+                <h2 data-jp>高負載移動平台与系統増強</h2>
+                <p data-en><b>Specialized Mobility & Tactical Resilience.</b> Delivering rugged all-terrain towing platforms and air-ground robotic systems. We bridge the gap between autonomous path-planning and battle-proven mechanical reliability.</p>
+                <p data-jp><b>特殊モビリティと戦術的レジリエンス。</b>堅牢な全地形対応牽引プラットフォームと空地一体型ロボットシステムを提供します。高度な自律経路計画と、実戦で証明された機械的信頼性を両立させます。</p>
+                <div class="visual-frame"><img src="tactical_mobility_system.webp" alt="Tactical Mobility"></div>
             </div>
+
             <div class="grid-item hover-target">
                 <span class="item-num">03.</span>
-                <h2 data-en>High-Dynamic Systems</h2>
-                <h2 data-jp>高ダイナミックシステム</h2>
-                <p data-en>Response optimization for kinetic units.</p>
-                <div class="visual-frame"><img src="kinetic.webp" alt="Kinetic"></div>
-            </div>
-            <div class="grid-item hover-target">
-                <span class="item-num">04.</span>
-                <h2 data-en>Global Integration</h2>
-                <h2 data-jp>グローバル統合</h2>
-                <p data-en>Connecting premier fabrication resources.</p>
-                <div class="visual-frame"><img src="integration.webp" alt="Integration"></div>
+                <h2 data-en>Bespoke Manufacturing & Global Fulfillment</h2>
+                <h2 data-jp>柔性供応鏈与全託管交付</h2>
+                <p data-en><b>From Concept to Rapid Deployment.</b> Leveraging a global manufacturing network centered in Southeast Asia, we offer a discreet path from prototyping to small-batch production for complex engineering requirements.</p>
+                <p data-jp><b>コンセプトから迅速な展開まで。</b>東南アジアを中心としたグローバルな製造ネットワークを活用し、試作から小規模量産まで、機密性を保ちながらシームレスなパスを提供します。</p>
+                <div class="visual-frame"><img src="global_fulfillment.webp" alt="Bespoke Manufacturing"></div>
             </div>
         </section>
 
         <section class="team-section" id="members">
             <span class="tagline">The Practitioners / 実践者</span>
             <div class="team-grid">
-                
                 <div class="member-card hover-target">
-                    <div class="member-photo"><img src="8.png" alt="Chief"></div>
+                    <div class="member-photo"><img src="8.webp" alt="Chief"></div>
                     <div class="member-info">
                         <b data-en>Chief Researcher</b><b data-jp>首席研究員</b>
-                        <span data-en>Strategic Architect &<br>Systems Integration Lead</span>
+                        <span data-en>Strategic Architect</span>
                     </div>
                 </div>
-
                 <div class="member-card hover-target">
-                    <div class="member-photo"><img src="4.png" alt="Principal"></div>
+                    <div class="member-photo"><img src="4.webp" alt="Principal"></div>
                     <div class="member-info">
                         <b data-en>Principal Engineer</b><b data-jp>主任エンジニア</b>
-                        <span data-en>Kinetic Response &<br>Dynamic Systems Expert</span>
+                        <span data-en>Kinetic Systems Expert</span>
                     </div>
                 </div>
-
-                <div class="member-card hover-target">
-                    <div class="member-photo"><img src="1.png" alt="Expert"></div>
-                    <div class="member-info"><b data-en>Algo Specialist</b><span>Structural Optimizer</span></div>
-                </div>
-                <div class="member-card hover-target">
-                    <div class="member-photo"><img src="2.png" alt="Expert"></div>
-                    <div class="member-info"><b data-en>Robotics Lead</b><span>Tactical Mobility</span></div>
-                </div>
-                <div class="member-card hover-target">
-                    <div class="member-photo"><img src="3.png" alt="Expert"></div>
-                    <div class="member-info"><b data-en>Material Scientist</b><span>3D Metal Expert</span></div>
-                </div>
-                <div class="member-card hover-target">
-                    <div class="member-photo"><img src="5.png" alt="Expert"></div>
-                    <div class="member-info"><b data-en>Integration Specialist</b><span>Global Network</span></div>
-                </div>
-                <div class="member-card hover-target">
-                    <div class="member-photo"><img src="6.png" alt="Expert"></div>
-                    <div class="member-info"><b data-en>Senior Analyst</b><span>Stability Control</span></div>
-                </div>
-                <div class="member-card hover-target">
-                    <div class="member-photo"><img src="7.png" alt="Expert"></div>
-                    <div class="member-info"><b data-en>Technical Lead</b><span>Operations Oversight</span></div>
-                </div>
+                <div class="member-card hover-target"><div class="member-photo"><img src="1.webp"></div><div class="member-info"><b>Algo Specialist</b><span>Structural Optimizer</span></div></div>
+                <div class="member-card hover-target"><div class="member-photo"><img src="2.webp"></div><div class="member-info"><b>Robotics Lead</b><span>Tactical Mobility</span></div></div>
+                <div class="member-card hover-target"><div class="member-photo"><img src="3.webp"></div><div class="member-info"><b>Material Scientist</b><span>3D Metal Expert</span></div></div>
+                <div class="member-card hover-target"><div class="member-photo"><img src="5.webp"></div><div class="member-info"><b>Integration Specialist</b><span>Global Network</span></div></div>
+                <div class="member-card hover-target"><div class="member-photo"><img src="6.webp"></div><div class="member-info"><b>Senior Analyst</b><span>Stability Control</span></div></div>
+                <div class="member-card hover-target"><div class="member-photo"><img src="7.webp"></div><div class="member-info"><b>Technical Lead</b><span>Operations Oversight</span></div></div>
             </div>
         </section>
     </main>

@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HUIREN Research | Advanced Engineering Solutions</title>
+    <title>HUIREN RESEARCH | Advanced Engineering Solutions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #f4f0e6;        
-            --bg-card: #ece6d8;        
-            --bg-card-hover: #dfd7c6;  
-            --text-main: #38332d;      
-            --text-dim: #7a7369;       
-            --accent: #5c5346;         
-            --border: #d5ccba;         
+            --bg-deep: #f4f0e6;        /* 象牙白底色 */
+            --bg-card: #ece6d8;        /* 卡片底色 */
+            --bg-card-hover: #dfd7c6;  /* 悬停底色 */
+            --text-main: #38332d;      /* 主文字色 */
+            --text-dim: #7a7369;       /* 辅助文字色 */
+            --accent: #5c5346;         /* 强调色 */
+            --border: #d5ccba;         /* 边框色 */
             --font-main: 'Inter', sans-serif;
             --font-serif: 'Cormorant Garamond', serif;
-            --transition: 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+            --transition: 0.6s cubic-bezier(0.2, 1, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none !important; }
-        html { scroll-behavior: smooth; background: var(--bg-deep); }
+        html { background: var(--bg-deep); }
         body {
             font-family: var(--font-main);
             background-color: var(--bg-deep);
@@ -32,15 +32,18 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* 自定义鼠标 */
         #cursor {
-            position: fixed; top: 0; left: 0; width: 6px; height: 6px;
+            position: fixed;
+            top: 0; left: 0; width: 6px; height: 6px;
             background: var(--accent); border-radius: 50%;
             pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
-            transition: width 0.5s var(--transition), height 0.5s var(--transition), background 0.5s;
+            transition: width 0.3s, height 0.3s, background 0.3s;
         }
 
         .container { max-width: 1400px; margin: 0 auto; padding: 0 4vw; }
 
+        /* 导航栏 */
         header {
             padding: 2rem 0;
             position: sticky; top: 0; z-index: 100;
@@ -48,81 +51,65 @@
             background: rgba(244, 240, 230, 0.85);
             backdrop-filter: blur(10px);
         }
-
         .header-wrapper { display: flex; align-items: center; }
-        .logo { font-size: 1rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-main); margin-right: auto; }
+        .logo { font-size: 1rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin-right: auto; }
 
         .main-nav { display: flex; gap: 2.5rem; margin-right: 2.5rem; }
-        .main-nav a { text-decoration: none; color: var(--text-dim); font-size: 0.85rem; letter-spacing: 0.05em; transition: 0.3s; }
-        .main-nav a:hover { color: var(--text-main); }
+        .main-nav a {
+            text-decoration: none; color: var(--text-dim); font-size: 0.85rem;
+            letter-spacing: 0.1em; transition: 0.3s; text-transform: uppercase;
+        }
+        .main-nav a.active { color: var(--text-main); font-weight: 600; border-bottom: 1px solid var(--text-main); }
 
         .lang-toggle { display: flex; gap: 15px; font-size: 0.75rem; color: var(--text-dim); border-left: 1px solid var(--border); padding-left: 15px;}
-        .lang-btn { background: none; border: none; color: inherit; font-size: inherit; letter-spacing: 0.1em; transition: 0.3s; cursor: none; }
-        .lang-btn.active { color: var(--text-main); font-weight: 500; }
+        .lang-btn { background: none; border: none; color: inherit; font-size: inherit; transition: 0.3s; }
+        .lang-btn.active { color: var(--text-main); font-weight: 600; }
 
-        .hero { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; padding: 10vh 0; }
-        .tagline { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5em; margin-bottom: 2rem; }
-        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.2; margin-bottom: 2rem; color: var(--text-main); }
-        .hero-desc { max-width: 750px; color: var(--text-dim); font-size: 1.05rem; line-height: 1.8; }
+        /* 页面切换逻辑 */
+        .page-section { display: none; min-height: 70vh; animation: fadeIn 0.8s ease-out; }
+        .page-section.active { display: block; }
 
-        /* 业务网格 */
-        .business-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .grid-item {
-            padding: 4vw 3vw; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-            background: var(--bg-card); transition: background var(--transition);
-            display: flex; flex-direction: column;
-        }
+
+        /* 模块样式：Overview (原 About) */
+        .hero { padding: 10vh 0; }
+        .tagline { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5em; margin-bottom: 2rem; display: block; }
+        h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.2; margin-bottom: 2.5rem; }
+        .hero-desc { max-width: 850px; color: var(--text-dim); font-size: 1.1rem; line-height: 1.8; }
+
+        /* 模块样式：Expertise (原 Capabilities) */
+        .expertise-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); border-left: 1px solid var(--border); margin-top: 5vh; }
+        .grid-item { padding: 4vw 3vw; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-card); transition: 0.5s; }
         .grid-item:hover { background: var(--bg-card-hover); }
-        .item-num { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: var(--text-dim); display: block; margin-bottom: 1.5rem; }
+        .grid-item h2 { font-weight: 500; margin-bottom: 1.2rem; font-size: 1.3rem; }
+        .grid-item p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 2.5rem; }
+        .visual-frame { width: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: #dcdcdc; }
+        .visual-frame img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .grid-item:hover img { transform: scale(1.1); }
 
-        .grid-item h2 { font-weight: 500; margin-bottom: 1.2rem; font-size: 1.2rem; line-height: 1.4; min-height: 3.5rem; }
-        .grid-item p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 2.5rem; flex-grow: 1; }
+        /* 模块样式：Team (8位成员) */
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5vw; padding: 5vh 0; }
+        .member-card { text-align: left; margin-bottom: 2rem; }
+        .member-photo { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #dcdcdc; margin-bottom: 1.2rem; }
+        .member-photo img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .member-info { color: var(--text-dim); font-size: 0.7rem; line-height: 1.5; }
+        .member-info b { color: var(--text-main); font-weight: 700; display: block; margin-bottom: 4px; font-size: 0.8rem; text-transform: uppercase; }
+        .member-card:hover img { transform: scale(1.05); }
 
-        /* 图片框架 - 移除黑白滤镜 */
-        .visual-frame { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: #dcdcdc; margin-top: auto; border: 1px solid rgba(0,0,0,0.05); }
-        .visual-frame img { 
-            width: 100%; height: 100%; object-fit: cover; 
-            filter: none; /* 移除黑白/褐色滤镜 */
-            transition: 1.2s var(--transition); 
-        }
-        .grid-item:hover img { transform: scale(1.08); }
+        /* 页脚 */
+        footer { padding: 6rem 0; border-top: 1px solid var(--border); margin-top: 5vh; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-dim); }
 
-        .team-section { padding: 10vw 0; border-bottom: 1px solid var(--border); }
-        .team-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 1.5vw; margin-top: 5vw; }
-        .member-card { text-align: left; }
-        .member-photo { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #dcdcdc; margin-bottom: 1rem; }
-        .member-photo img { width: 100%; height: 100%; object-fit: cover; filter: none; transition: var(--transition); }
-        .member-info { color: var(--text-dim); font-size: 0.65rem; line-height: 1.4; }
-        .member-info b { color: var(--text-main); font-weight: 700; display: block; margin-bottom: 3px; font-size: 0.75rem; }
-        .member-card:hover img { transform: scale(1.1); }
-
-        footer { padding: 8rem 0; border-top: 1px solid var(--border); }
-        .footer-content { display: flex; justify-content: space-between; align-items: center; }
-        .footer-mail { font-size: 1.5rem; color: var(--text-main); text-decoration: underline; text-underline-offset: 8px; font-weight: 700; padding: 10px 20px; transition: 0.4s; }
-        .footer-mail:hover { background: var(--text-main); color: var(--bg-deep); text-decoration: none; }
-
-        #back-to-top {
-            position: fixed; bottom: 40px; right: 40px; z-index: 99;
-            width: 60px; height: 60px; background: var(--bg-card); border: 1px solid var(--border);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; transition: 0.4s; font-size: 0.7rem;
-        }
-        #back-to-top.show { opacity: 1; visibility: visible; }
-
-        /* 语言切换逻辑 */
+        /* 语言控制 */
         [data-en] { display: block; } [data-jp] { display: none; }
         body.jp-active [data-en] { display: none; } body.jp-active [data-jp] { display: block; }
 
-        @media (max-width: 1200px) {
-            .business-grid { grid-template-columns: 1fr; }
-            .team-grid { grid-template-columns: repeat(4, 1fr); gap: 3vw; }
-        }
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .team-grid { grid-template-columns: repeat(2, 1fr); }
-            .footer-content { flex-direction: column; gap: 3rem; }
+            .expertise-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -133,136 +120,168 @@
     <header>
         <div class="container">
             <div class="header-wrapper">
-                <div class="logo">HUIREN LAB</div>
+                <div class="logo">HUIREN RESEARCH</div>
                 <nav class="main-nav">
-                    <a href="#about" class="hover-target">About</a>
-                    <a href="#research" class="hover-target">Capabilities</a>
-                    <a href="#members" class="hover-target">Members</a>
+                    <a href="#" class="nav-link active hover-target" data-target="overview">
+                        <span data-en>Overview</span><span data-jp>概要</span>
+                    </a>
+                    <a href="#" class="nav-link hover-target" data-target="expertise">
+                        <span data-en>Expertise</span><span data-jp>主要技術</span>
+                    </a>
+                    <a href="#" class="nav-link hover-target" data-target="team">
+                        <span data-en>Team</span><span data-jp>チーム</span>
+                    </a>
                 </nav>
                 <div class="lang-toggle hover-target">
                     <button class="lang-btn active" id="btn-en">EN</button>
-                    <span>|</span>
-                    <button class="lang-btn" id="btn-jp">CN/JP</button>
+                    <span>/</span>
+                    <button class="lang-btn" id="btn-jp">JP</button>
                 </div>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <section class="hero" id="about">
-            <span class="tagline" data-en>Slogan</span>
-            <span class="tagline" data-jp>商业化定调</span>
-            
-            <h1 data-en>Engineering Beyond Limits.<br>Delivering Ready-to-Deploy Systems.</h1>
-            <h1 data-jp>突破工程极限。<br>交付即插即用的实战系统。</h1>
-            
-            <div class="hero-desc">
-                <p data-en>
-                    <b>Huiren Lab</b> is an independent institution focused on hardcore engineering solutions in extreme environments. 
-                    We cross theoretical boundaries to provide global clients with structural lightweighting, autonomous platform development, 
-                    and kinetic system reconstruction services. Leveraging deep algorithmic accumulation and a global manufacturing network, 
-                    we ensure every solution from the lab is a high-reliability product ready for immediate tactical deployment.
-                </p>
-                <p data-jp>
-                    <b>Huiren Lab</b> 是一家专注于极端环境下硬核工程解决方案的独立机构。
-                    我们跨越理论边界，为全球客户提供结构轻量化、自主平台开发及动能系统重构服务。
-                    依托深厚的算法积累与全球制造网络，我们确保每一个从实验室走出的方案，都是能够直接投入实战的高可靠性产品。
-                </p>
+        <section id="overview" class="page-section active">
+            <div class="hero">
+                <span class="tagline" data-en>Corporate Vision</span><span data-jp>企業ビジョン</span>
+                <h1 data-en>Engineering High-Reliability Systems<br>for Industrial Evolution.</h1>
+                <h1 data-jp>次世代の産業発展を支える、<br>高信頼性システムの構築。</h1>
+                <div class="hero-desc">
+                    <p data-en><b>HUIREN RESEARCH</b> is a specialized engineering lab dedicated to bridging complex theoretical physics with practical industrial deployment. We focus on structural integrity and autonomous systems for extreme environments.</p>
+                    <p data-jp><b>HUIREN RESEARCH（慧仁研究グループ）</b>は、複雑な物理理論と実用的な産業配備を融合させる工学専門ラボです。極限環境における構造的整合性と自律システムの開発に注力しています。</p>
+                </div>
             </div>
         </section>
 
-        <section class="business-grid" id="research">
-            <div class="grid-item hover-target">
-                <span class="item-num">01.</span>
-                <h2 data-en>Structural Evolution & Optimization</h2>
-                <h2 data-jp>结构重塑与多场耦合优化</h2>
-                <p data-en>Extreme Performance Engineering. We specialize in multiphysics topology optimization for critical components, achieving significant weight reduction while enhancing structural rigidity.</p>
-                <p data-jp>极强制性能工程。我们专注于核心部件的多物理场拓扑优化，在显著降低重量的同时，提升结构刚度与实战可靠性。</p>
-                <div class="visual-frame"><img src="part1.webp" alt="Engineering Part 1"></div>
-            </div>
-
-            <div class="grid-item hover-target">
-                <span class="item-num">02.</span>
-                <h2 data-en>Heavy-Duty Platforms & System Enhancement</h2>
-                <h2 data-jp>高负载移动平台与系统增强</h2>
-                <p data-en>Specialized Mobility & Tactical Resilience. Delivering rugged all-terrain towing platforms and air-ground robotic systems that bridge mechanical reliability and autonomy.</p>
-                <p data-jp>特种移动与战术韧性。交付坚固的全地形牵引平台与空地一体化机器人系统，填补自律路径规划与机械可靠性之间的鸿沟。</p>
-                <div class="visual-frame"><img src="part2.webp" alt="Engineering Part 2"></div>
-            </div>
-
-            <div class="grid-item hover-target">
-                <span class="item-num">03.</span>
-                <h2 data-en>Bespoke Manufacturing & Global Fulfillment</h2>
-                <h2 data-jp>柔性供应链与全托管交付</h2>
-                <p data-en>From Concept to Rapid Deployment. Leveraging a global network centered in Southeast Asia for discreet prototyping and small-batch production of complex systems.</p>
-                <p data-jp>从概念到快速部署。依托以东南亚为中心的全球制造网络，为复杂工程需求提供从原型到小批量生产的机密交付路径。</p>
-                <div class="visual-frame"><img src="part3.webp" alt="Engineering Part 3"></div>
+        <section id="expertise" class="page-section">
+            <div class="expertise-grid">
+                <div class="grid-item hover-target">
+                    <h2 data-en>Structural Optimization</h2><h2 data-jp>構造最適化解析</h2>
+                    <p data-en>Applying advanced topology optimization for aerospace-grade structural components.</p>
+                    <p data-jp>航空宇宙グレードの構造部品に対する、高度なトポロジー最適化の実装。</p>
+                    <div class="visual-frame"><img src="part1.webp"></div>
+                </div>
+                <div class="grid-item hover-target">
+                    <h2 data-en>Autonomous Platforms</h2><h2 data-jp>自律型基盤</h2>
+                    <p data-en>Integrating proprietary AI path-planning with ruggedized robotic hardware.</p>
+                    <p data-jp>独自のAI経路計画と堅牢なロボットハードウェアの統合。</p>
+                    <div class="visual-frame"><img src="part2.webp"></div>
+                </div>
+                <div class="grid-item hover-target">
+                    <h2 data-en>Technical Fulfillment</h2><h2 data-jp>技術供給ソリューション</h2>
+                    <p data-en>Global deployment of engineering prototypes with decentralized production.</p>
+                    <p data-jp>分散型製造による、工学プロトタイプのグローバル展開。</p>
+                    <div class="visual-frame"><img src="part3.webp"></div>
+                </div>
             </div>
         </section>
 
-        <section class="team-section" id="members">
-            <span class="tagline">The Practitioners / 实践者</span>
+        <section id="team" class="page-section">
+            <div style="padding: 8vh 0 2vh 0;">
+                <span class="tagline" data-en>Strategic Leadership</span><span data-jp>戦略リーダーシップ</span>
+            </div>
             <div class="team-grid">
                 <div class="member-card hover-target">
-                    <div class="member-photo"><img src="8.webp" alt="Chief"></div>
+                    <div class="member-photo"><img src="8.webp"></div>
                     <div class="member-info">
-                        <b data-en>Chief Researcher</b><b data-jp>首席研究员</b>
-                        <span>Strategic Architect</span>
+                        <b data-en>Chief Research Officer</b><b data-jp>首席研究員 / CRO</b>
+                        <span data-en>Strategic Architecture</span><span data-jp>戦略アーキテクチャ</span>
                     </div>
                 </div>
                 <div class="member-card hover-target">
-                    <div class="member-photo"><img src="4.webp" alt="Principal"></div>
+                    <div class="member-photo"><img src="4.webp"></div>
                     <div class="member-info">
-                        <b data-en>Principal Engineer</b><b data-jp>主任工程师</b>
-                        <span>Kinetic Systems Expert</span>
+                        <b data-en>Principal Systems Engineer</b><b data-jp>主任技師</b>
+                        <span data-en>Kinetic Systems Design</span><span data-jp>動態システム設計</span>
                     </div>
                 </div>
-                <div class="member-card hover-target"><div class="member-photo"><img src="1.webp"></div><div class="member-info"><b>Algo Specialist</b><span>Structural Optimizer</span></div></div>
-                <div class="member-card hover-target"><div class="member-photo"><img src="2.webp"></div><div class="member-info"><b>Robotics Lead</b><span>Tactical Mobility</span></div></div>
-                <div class="member-card hover-target"><div class="member-photo"><img src="3.webp"></div><div class="member-info"><b>Material Scientist</b><span>3D Metal Expert</span></div></div>
-                <div class="member-card hover-target"><div class="member-photo"><img src="5.webp"></div><div class="member-info"><b>Integration Specialist</b><span>Global Network</span></div></div>
-                <div class="member-card hover-target"><div class="member-photo"><img src="6.webp"></div><div class="member-info"><b>Senior Analyst</b><span>Stability Control</span></div></div>
-                <div class="member-card hover-target"><div class="member-photo"><img src="7.webp"></div><div class="member-info"><b>Technical Lead</b><span>Operations Oversight</span></div></div>
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="1.webp"></div>
+                    <div class="member-info">
+                        <b data-en>Senior Computational Lead</b><b data-jp>シニア計算リード</b>
+                        <span data-en>Structural Optimization</span><span data-jp>構造最適化解析</span>
+                    </div>
+                </div>
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="2.webp"></div>
+                    <div class="member-info">
+                        <b data-en>Head of Autonomous Systems</b><b data-jp>自律システム部門長</b>
+                        <span data-en>Robotics & Tactical Mobility</span><span data-jp>ロボティクス・戦術機動</span>
+                    </div>
+                </div>
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="3.webp"></div>
+                    <div class="member-info">
+                        <b data-en>Senior Material Scientist</b><b data-jp>シニア材料科学者</b>
+                        <span data-en>Additive Manufacturing</span><span data-jp>付加製造・3Dメタル</span>
+                    </div>
+                </div>
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="5.webp"></div>
+                    <div class="member-info">
+                        <b data-en>Integration Operations Manager</b><b data-jp>統合運用マネージャー</b>
+                        <span data-en>Global Network Logistics</span><span data-jp>グローバル・ロジスティクス</span>
+                    </div>
+                </div>
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="6.webp"></div>
+                    <div class="member-info">
+                        <b data-en>Senior Systems Analyst</b><b data-jp>シニアシステムアナリスト</b>
+                        <span data-en>Stability Control Units</span><span data-jp>安定制御ユニット解析</span>
+                    </div>
+                </div>
+                <div class="member-card hover-target">
+                    <div class="member-photo"><img src="7.webp"></div>
+                    <div class="member-info">
+                        <b data-en>Technical Compliance Lead</b><b data-jp>技術コンプライアンス・リード</b>
+                        <span data-en>Operational Standards</span><span data-jp>運用標準・監査</span>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
         <div class="container footer-content">
-            <div class="copyright">© 2026 HUIREN RESEARCH GROUP.</div>
-            <a href="mailto:contact@huiren-lab.org" class="footer-mail hover-target">contact@huiren-lab.org</a>
+            <div>© 2026 HUIREN RESEARCH GROUP. PRIVATE SECTOR ENGINEERING.</div>
+            <a href="mailto:contact@huiren-lab.org" class="hover-target" style="color:var(--text-main); font-weight:600; text-decoration:none;">contact@huiren-lab.org</a>
         </div>
     </footer>
 
-    <div id="back-to-top" class="hover-target">↑ TOP</div>
-
     <script>
+        // 鼠标逻辑
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
         });
 
         document.querySelectorAll('.hover-target').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.width = '40px'; cursor.style.height = '40px';
-                cursor.style.background = 'transparent'; cursor.style.border = '1px solid var(--accent)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.width = '6px'; cursor.style.height = '6px';
-                cursor.style.background = 'var(--accent)'; cursor.style.border = 'none';
-            });
+            el.onmouseenter = () => { cursor.style.width = '40px'; cursor.style.height = '40px'; cursor.style.background = 'transparent'; cursor.style.border = '1px solid var(--accent)'; };
+            el.onmouseleave = () => { cursor.style.width = '6px'; cursor.style.height = '6px'; cursor.style.background = 'var(--accent)'; cursor.style.border = 'none'; };
         });
 
+        // 选项卡切换逻辑
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.page-section');
+
+        navLinks.forEach(link => {
+            link.onclick = (e) => {
+                e.preventDefault();
+                const target = link.getAttribute('data-target');
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(target).classList.add('active');
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            };
+        });
+
+        // 语言切换逻辑
         const btnEn = document.getElementById('btn-en');
         const btnJp = document.getElementById('btn-jp');
         btnEn.onclick = () => { document.body.classList.remove('jp-active'); btnEn.classList.add('active'); btnJp.classList.remove('active'); };
         btnJp.onclick = () => { document.body.classList.add('jp-active'); btnJp.classList.add('active'); btnEn.classList.remove('active'); };
-
-        const btt = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) btt.classList.add('show'); else btt.classList.remove('show');
-        });
-        btt.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
     </script>
 </body>
 </html>
